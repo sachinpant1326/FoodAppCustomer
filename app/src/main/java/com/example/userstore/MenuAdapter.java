@@ -63,8 +63,8 @@ public class MenuAdapter extends BaseAdapter
             {
 
                 ModelOrder ob1=new ModelOrder(data.getItem_name(),data.getItem_price()
-                ,"0",data.getItem_shop(),data.getItem_url(),data.getItem_owner());
-                ModelCart.getInstance().arr.add(ob1);
+                ,"0",data.getItem_shop(),data.getItem_url(),data.getItem_owner(),"0","0","0");
+                SingletonCart.getInstance().arr.add(ob1);
 
                 Toast.makeText(v.getContext(),"Successfully Added",Toast.LENGTH_LONG).show();
 

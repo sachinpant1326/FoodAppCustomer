@@ -37,7 +37,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
         return vh;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         viewHolder.t1.setText(item.get(i).getItem_name());
@@ -54,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
                 if(no<10)
                 {
                     viewHolder.e1.setText(""+no);
-                    ModelCart.getInstance().arr.get(index).setItem_quantity(""+no);
+                    SingletonCart.getInstance().arr.get(index).setItem_quantity(""+no);
                 }
 
             }
@@ -65,7 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
                 int no=Integer.parseInt(viewHolder.e1.getText().toString())-1;
                 if(no>-1) {
                     viewHolder.e1.setText("" + no);
-                    ModelCart.getInstance().arr.get(index).setItem_quantity(""+no);
+                    SingletonCart.getInstance().arr.get(index).setItem_quantity(""+no);
                 }
             }
         });
@@ -75,7 +74,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
             @Override
             public void onClick(View v)
             {
-                ModelCart ob=ModelCart.getInstance();
+                SingletonCart ob=SingletonCart.getInstance();
                 ob.arr.remove(pos);
             }
         });
@@ -86,7 +85,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
     public int getItemCount() {
         return item.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView t1, t2, t3;

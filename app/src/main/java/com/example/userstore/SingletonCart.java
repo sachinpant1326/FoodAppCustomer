@@ -2,20 +2,20 @@ package com.example.userstore;
 
 import java.util.ArrayList;
 
-public class ModelCart
+public class SingletonCart
 {
     public ArrayList<ModelOrder> arr;
-    private static ModelCart ob=null;
+    private static SingletonCart ob=null;
 
-    private ModelCart()
+    private SingletonCart()
     {
         arr=new ArrayList<>();
     }
 
-    public static ModelCart getInstance()
+    public static SingletonCart getInstance()
     {
         if(ob==null)
-            ob=new ModelCart();
+            ob=new SingletonCart();
         return ob;
     }
 }
