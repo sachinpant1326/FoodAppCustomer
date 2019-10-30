@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +24,10 @@ import java.util.ArrayList;
 public class Menu extends Fragment
 {
     GridView gv;
-    MenuAdapter cg;
+    MenuAdapter adapter;
     ArrayList<ModelData> data;
     DatabaseReference data_ref;
+    SearchView sv;
 
     public Menu() {}
 
@@ -37,7 +39,21 @@ public class Menu extends Fragment
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
         data_ref= FirebaseDatabase.getInstance().getReference("Items");
         gv=v.findViewById(R.id.sp_menu_gv);
+        sv=(SearchView)v.findViewById(R.id.menu_sv);
         getData();
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String s)
+            {
+                doSearch(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return v;
     }
 
@@ -54,8 +70,8 @@ public class Menu extends Fragment
                     data.add(d);
                 }
 
-                cg=new MenuAdapter(getActivity(),data);
-                gv.setAdapter(cg);
+                adapter=new MenuAdapter(getActivity(),data);
+                gv.setAdapter(adapter);
             }
 
             @Override
@@ -63,6 +79,27 @@ public class Menu extends Fragment
                 Toast.makeText(getContext(),"Error Occured",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void doSearch(String s)
+    {
+        if(s==null)
+        {
+            adapter=new MenuAdapter(getContext(),data);
+            gv.setAdapter(adapter);
+            return;
+        }
+        String userInput=s.toLowerCase();
+        ArrayList<ModelData> filterlist=new ArrayList<>();
+        for(int i=0;i<data.size();i++)
+        {
+            String st=data.get(i).getItem_name().toLowerCase();
+            if(st.contains(userInput)) {
+                filterlist.add(data.get(i));
+            }
+        }
+        adapter=new MenuAdapter(getContext(),filterlist);
+        gv.setAdapter(adapter);
     }
 
 }

@@ -50,14 +50,23 @@ public class Cart extends Fragment implements View.OnClickListener
         rv1=v.findViewById(R.id.cart_rv);
         b1=v.findViewById(R.id.cart_b1);
         b1.setOnClickListener(this);
-        rv1.setHasFixedSize(true);
-        rv1.setLayoutManager(new LinearLayoutManager(getContext()));
+        return v;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
         item=SingletonCart.getInstance().arr;     // data from singleton Modelcart
-
+        if(item.size()==0)
+            b1.setVisibility(View.INVISIBLE);
+        else
+            b1.setVisibility(View.VISIBLE);
+        rv1.setHasFixedSize(true);
+        rv1.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter=new CartAdapter(getActivity(),item);
         rv1.setAdapter(adapter);
-        return v;
     }
 
     public void onClick(View v)

@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Menu">
+    android:layout_height="match_parent">
 
-    <GridView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/menu_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
-        android:numColumns="2"
-        android:id="@+id/sp_menu_gv"/>
+        android:layout_margin="5dp"
+        android:elevation="10dp">
 
-</FrameLayout>
+        <SearchView
+            android:id="@+id/menu_sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search Here" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <GridView
+        android:id="@+id/sp_menu_gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/menu_cv"
+        android:horizontalSpacing="2dp"
+        android:numColumns="2"
+        android:verticalSpacing="2dp" />
+
+</RelativeLayout>

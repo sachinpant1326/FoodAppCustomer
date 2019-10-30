@@ -62,7 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
             @Override
             public void onClick(View v) {
                 int no=Integer.parseInt(viewHolder.e1.getText().toString())-1;
-                if(no>-1) {
+                if(no>0) {
                     viewHolder.e1.setText("" + no);
                     SingletonCart.getInstance().arr.get(index).setItem_quantity(""+no);
                 }
@@ -76,9 +76,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
             {
                 SingletonCart ob=SingletonCart.getInstance();
                 ob.arr.remove(pos);
+                notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -88,8 +88,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView t1, t2, t3;
-        ImageView i1;
-        ImageButton i2,i3,i4;
+        ImageView i1,i4;
+        ImageButton i2,i3;
         TextView e1;        // it was edittext before
 
         public ViewHolder(@NonNull View itemView) {

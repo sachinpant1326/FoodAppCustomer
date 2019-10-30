@@ -4,7 +4,8 @@ public class ModelOrder {
     private String item_name, item_price, item_quantity, item_shop, item_url, item_owner;
     private String uname, uaddress, uphone;
 
-    public ModelOrder() {
+    public ModelOrder()
+    {
     }
 
     public ModelOrder(String item_name, String item_price, String item_quantity, String item_shop, String item_url, String item_owner, String uname, String uaddress, String uphone) {
