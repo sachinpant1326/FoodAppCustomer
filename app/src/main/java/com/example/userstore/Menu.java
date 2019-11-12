@@ -28,6 +28,7 @@ public class Menu extends Fragment
     ArrayList<ModelData> data;
     DatabaseReference data_ref;
     SearchView sv;
+    String filter;
 
     public Menu() {}
 
@@ -37,6 +38,9 @@ public class Menu extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
+
+        filter = getArguments().getString("shop");
+
         data_ref= FirebaseDatabase.getInstance().getReference("Items");
         gv=v.findViewById(R.id.sp_menu_gv);
         sv=(SearchView)v.findViewById(R.id.menu_sv);
@@ -67,7 +71,8 @@ public class Menu extends Fragment
                 for(DataSnapshot ds: dataSnapshot.getChildren())
                 {
                     ModelData d=ds.getValue(ModelData.class);
-                    data.add(d);
+                    if(filter.equals("10") | filter.equals(d.getItem_shop()))
+                        data.add(d);
                 }
 
                 adapter=new MenuAdapter(getActivity(),data);
