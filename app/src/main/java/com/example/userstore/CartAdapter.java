@@ -1,5 +1,6 @@
 package com.example.userstore;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +78,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>
                 SingletonCart ob=SingletonCart.getInstance();
                 ob.arr.remove(pos);
                 notifyDataSetChanged();
+                if(ob.arr.size()==0)
+                    ((Activity)ct).findViewById(R.id.cart_b1).setVisibility(View.INVISIBLE);
             }
         });
     }

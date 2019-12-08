@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
     public void getShopName()
     {
         ht=new HashSet<>();
-        sname=new ArrayList<>();
 
         DatabaseReference data_ref= FirebaseDatabase.getInstance().getReference("Items");
         data_ref.addValueEventListener(new ValueEventListener() {
@@ -103,8 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot ds: dataSnapshot.getChildren())
                 {
                     ModelData d=ds.getValue(ModelData.class);
-                    System.out.println(d.getItem_shop());
-                    sname.add(d.getItem_shop());
+                    ht.add(d.getItem_shop());
+                }
+
+                sname=new ArrayList<>();
+                for(String s:ht)
+                {
+                    sname.add(s);
                 }
             }
 
@@ -114,11 +118,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        for(String s:ht)
-        {
-            sname.add(s);
-            System.out.println(s);
-        }
     }
 
 }

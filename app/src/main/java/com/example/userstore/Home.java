@@ -4,12 +4,19 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.razorpay.PaymentResultListener;
 
+import java.util.ArrayList;
 
-public class Home extends AppCompatActivity
+public class Home extends AppCompatActivity implements PaymentResultListener
 {
     String filter;
+    static String uname,uphone,uaddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,4 +60,32 @@ public class Home extends AppCompatActivity
                         return true;
                     }
                 };
+
+    @Override
+    public void onPaymentSuccess(String s)
+    {
+        placeOrder();
+        SingletonCart.getInstance().arr=new ArrayList<>();
+        Toast.makeText(getApplicationContext(),"Your Food is successfully ordered",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+
+    }
+
+    public void placeOrder()
+    {
+        DatabaseReference data_ref= FirebaseDatabase.getInstance().getReference("Orders");
+        ArrayList<ModelOrder> arr=SingletonCart.getInstance().arr;
+        for(int i=0;i<arr.size();i++)
+        {
+            ModelOrder ob=arr.get(i);
+            ob.setUname(uname);
+            ob.setUphone(uphone);
+            ob.setUaddress(uaddress);
+            String uploadid=data_ref.push().getKey();
+            data_ref.child(uploadid).setValue(ob);
+        }
+    }
 }
