@@ -67,7 +67,6 @@ public class Cart extends Fragment implements View.OnClickListener{
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         View v=getLayoutInflater().inflate(R.layout.information,null);
-        alert.setTitle("Delievery Information");
         final EditText name=v.findViewById(R.id.inf_e1);
         final EditText phone=v.findViewById(R.id.inf_e2);
         final EditText address=v.findViewById(R.id.inf_e3);

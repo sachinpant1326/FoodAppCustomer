@@ -85,6 +85,7 @@ public class Home extends AppCompatActivity implements PaymentResultListener
             ob.setUphone(uphone);
             ob.setUaddress(uaddress);
             String uploadid=data_ref.push().getKey();
+            ob.setKey(uploadid);
             data_ref.child(uploadid).setValue(ob);
         }
     }
